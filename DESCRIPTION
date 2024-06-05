@@ -1,0 +1,21 @@
+Package: poststratIV
+Title: Post-Stratified Estimation of Complier Average Causal Effects
+Version: 0.0.0.9000
+Authors@R: 
+    person("Luke", "Miratrix", , "lmiratrix@g.harvard.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0078-1906"))
+Description: Implements post-stratified estimation of complier average causal effects
+    (CACE) in the presence of non-compliance for RCTs.  Package also provides some code to run simulations
+    of different ways of estimating complier average causal effects, including 2SLS, 
+    post-stratification, and various weighting approaches as delineated in our paper.
+Imports: 
+    magrittr (>= 1.5)
+Includes: tidyverse
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Suggests: 
+    testthat (>= 3.0.0),
+    AER
+Config/testthat/edition: 3

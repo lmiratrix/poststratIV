@@ -1,0 +1,57 @@
+---
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r, include = FALSE}
+library( tidyverse )
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
+)
+```
+
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+
+
+# poststratIV
+
+Package to post-stratify an IV estimate to increase precision.  Also has replication code for associated paper, including code to run the simulations and generate synthetic RCT with non-compliance data.
+
+
+
+## Demo of use
+
+First we make or load some data:
+
+```{r}
+library( poststratIV )
+dat = make_dat( N = 1000,
+                params = default_sim_params() )
+```
+
+Then we estimate, declaring the outcome, compliance indicator, treatment assignment indicator, and stratification variable (baseline categorical variable of some sort):
+
+```{r}
+res <- IV.est.strat( dat, 
+                     Yobs="Yobs", S="S", Z="Z", strat_var="X" )
+res %>%
+    dplyr::select( Xblk, ITT.hat, pi.hat, LATE.hat, SE.wald ) %>%
+    knitr::kable( digits = 2 )
+```
+
+There is also the usual IV with no covariate adjustment:
+
+```{r}
+res <- IV.est( dat, 
+                     Yobs="Yobs", S="S", Z="Z" )
+knitr::kable( res, digits=2 )
+```
+
