@@ -3,7 +3,9 @@
 
 ##### Analyze the random stratification simulation results #####
 
-cat( "Analyzing the 'random stratification' simulation\n" )
+cat( "\n\nAnalyzing the 'random stratification' simulation\n" )
+
+library( tidyverse )
 
 
 # Where to load results from

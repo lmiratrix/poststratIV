@@ -25,7 +25,7 @@ if ( RUN_SIMULATIONS ) {
     source("simulation_full_twosided.R")
     source("simulation_pred_C_twosided.R")
 
-    cat( "Finished with the double simulation scripts\n" )a
+    cat( "Finished with the double simulation scripts\n" )
 
     source("simulation_exclusion_restriction.R")
     source("simulation_random_stratification.R")

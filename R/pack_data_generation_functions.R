@@ -367,8 +367,8 @@ make_dat = function( N, pi_c = NULL,
 
     df = rand.exp( df )
 
-    if ( !include.POs ) {
-        df = df %>% select( -Y0, -Y1, -S1, -S0 )
+    if ( !include_POs ) {
+        df = df |> dplyr::select( -Y0, -Y1, -S1, -S0 )
     }
     return( df )
 }

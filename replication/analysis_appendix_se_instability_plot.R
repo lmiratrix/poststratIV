@@ -23,7 +23,7 @@ SCENARIO = "pool"
 
 
 cat( "\n\n" )
-cli_alert_info( "Running and analyzing the SE instability simulation with one-sided={ONE_SIDED_SIMULATION} and SCENARIO={SCENARIO}\n" )
+cli_alert_info( "Analyzing SE instability with one-sided={ONE_SIDED_SIMULATION} and SCENARIO={SCENARIO}\n" )
 
 
 
