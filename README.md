@@ -22,12 +22,12 @@ head( dat )
 #> # A tibble: 6 × 5
 #>   X     complier     Z     S  Yobs
 #>   <chr>    <dbl> <dbl> <dbl> <dbl>
-#> 1 X1           0     0     0 4.16 
-#> 2 X3           1     0     0 1.99 
-#> 3 X1           0     1     0 5.23 
-#> 4 X3           0     1     0 2.15 
-#> 5 X1           0     0     0 3.40 
-#> 6 X4           1     0     0 0.841
+#> 1 X2           0     0     0  2.11
+#> 2 X2           0     0     0  3.13
+#> 3 X2           0     0     0  3.40
+#> 4 X4           1     0     0  2.26
+#> 5 X1           0     1     0  3.88
+#> 6 X1           0     1     0  4.80
 ```
 
 The data needs a single categorical covariate to stratify on.
@@ -46,17 +46,17 @@ res %>%
 
 | Xblk    | ITT.hat | pi.hat | LATE.hat | SE.wald |
 |:--------|--------:|-------:|---------:|--------:|
-| X1      |    0.01 |   0.01 |     1.78 |    8.53 |
-| X2      |   -0.10 |   0.05 |    -2.09 |    1.46 |
-| X3      |    0.77 |   0.52 |     1.46 |    0.39 |
-| X4      |    1.73 |   1.00 |     1.73 |    0.15 |
-| UNSTRAT |    0.18 |   0.11 |     1.56 |    0.56 |
-| IV_w    |    0.12 |   0.12 |     0.99 |    0.36 |
-| DSS0    |    0.12 |   0.12 |     0.99 |    0.36 |
-| IV_a    |    0.12 |   0.12 |     0.99 |    0.36 |
-| DSS     |    0.20 |   0.21 |     0.97 |    0.30 |
-| PWIV    |    0.12 |   0.12 |     1.66 |    0.14 |
-| DSF     |    0.20 |   0.21 |     0.97 |    0.30 |
+| X1      |   -0.10 |   0.00 |     0.00 |    0.00 |
+| X2      |    0.05 |   0.05 |     0.98 |    1.37 |
+| X3      |    0.62 |   0.64 |     0.96 |    0.25 |
+| X4      |    1.50 |   0.95 |     1.58 |    0.24 |
+| UNSTRAT |    0.07 |   0.16 |     0.45 |    0.39 |
+| IV_w    |    0.28 |   0.23 |     1.20 |    0.26 |
+| DSS0    |    0.28 |   0.23 |     1.20 |    0.26 |
+| IV_a    |    0.12 |   0.14 |     0.90 |    0.32 |
+| DSS     |    0.28 |   0.23 |     1.20 |    0.26 |
+| PWIV    |    0.28 |   0.23 |     1.28 |    0.17 |
+| DSF     |    0.28 |   0.23 |     1.20 |    0.26 |
 
 There is also the usual IV with no covariate adjustment:
 
@@ -68,9 +68,9 @@ knitr::kable( res, digits=2 )
 
 | ITT.hat | pi.hat | LATE.hat | SE.ITT | SE.pi | cov.ITT.pi | SE.wald | SE.delta |    n |
 |--------:|-------:|---------:|-------:|------:|-----------:|--------:|---------:|-----:|
-|    0.18 |   0.11 |     1.56 |   0.06 |  0.02 |          0 |    0.56 |     0.63 | 1000 |
+|    0.07 |   0.16 |     0.45 |   0.06 |  0.02 |          0 |    0.39 |     0.41 | 1000 |
 
-## Replication Code
+## Replication Simulation Code
 
 The `replication` directory holds all the replication files for the
 post-stratification IV paper.
@@ -104,3 +104,9 @@ The scripts will build directories as needed, saving results in those
 directories.
 
 You can run all of it via the `run_everything.R` script.
+
+## Replication Applied Example Code
+
+This code is also in `replication`. You will need to download the data
+and put it in a `data` directory in the `replication` folder. Data can
+be found at (<https://isps.yale.edu/research/data/d017>).

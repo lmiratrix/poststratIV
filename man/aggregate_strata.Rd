@@ -10,6 +10,12 @@ aggregate_strata(gsum, weighting = c("normal", "double", "precision"))
 \arguments{
 \item{gsum}{Data table of strata-level estimates (point estimates
 and standard errors, etc)}
+
+\item{Weighting:}{normal means weight by estimated number of
+compliers, double means square of that, precision means 1/SE^2.}
+}
+\value{
+Aggregated result
 }
 \description{
 Aggregate strata using specified weighting and calculate associated

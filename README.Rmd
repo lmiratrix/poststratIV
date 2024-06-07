@@ -59,7 +59,7 @@ knitr::kable( res, digits=2 )
 ```
 
 
-## Replication Code
+## Replication Simulation Code
 
 
 The `replication` directory holds all the replication files for the post-stratification IV paper.
@@ -83,4 +83,13 @@ Once you download the replication folder, open the R project inside the folder (
 The scripts will build directories as needed, saving results in those directories.
 
 You can run all of it via the `run_everything.R` script.
+
+
+## Replication Applied Example Code
+
+This code is also in `replication`.  You will need to download the data and put it in a `data` directory in the `replication` folder.
+Data for first example can be found at (https://isps.yale.edu/research/data/d017).
+Data for second example can be found at (https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/Q6CID7).
+
+
 

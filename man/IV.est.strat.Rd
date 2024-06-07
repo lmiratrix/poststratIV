@@ -17,7 +17,8 @@ IV.est.strat(
   drop_without_warning = FALSE,
   include_blocks = TRUE,
   include_FSS = TRUE,
-  return_strata_only = FALSE
+  return_strata_only = FALSE,
+  tidy_table = FALSE
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ variable that we should stratify on.}
 \item{drop_without_warning}{If TRUE will drop blocks that are
 inestimable due to not having at least 2 tx and 2 co units.  If
 FALSE will drop, but also throw warning.}
+
+\item{tidy_table}{TRUE means only return subset of results in the
+table (primary results of interest)}
 }
 \description{
 STRAT_cw: Estimate LATE in each strata, then take the weighted

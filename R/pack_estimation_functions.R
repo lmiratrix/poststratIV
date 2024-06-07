@@ -176,6 +176,11 @@ IV.est = function( data, Yobs="Yobs", S="S", Z="Z",
 #'
 #' @param gsum Data table of strata-level estimates (point estimates
 #'   and standard errors, etc)
+#' @param Weighting: normal means weight by estimated number of
+#'   compliers, double means square of that, precision means 1/SE^2.
+#' @return Aggregated result
+#'
+#' @export
 aggregate_strata <- function( gsum, weighting = c( "normal", "double", "precision" ) ) {
 
 
@@ -299,9 +304,12 @@ calc_IVa <- function( gsum ) {
 #' @param drop_without_warning If TRUE will drop blocks that are
 #'   inestimable due to not having at least 2 tx and 2 co units.  If
 #'   FALSE will drop, but also throw warning.
+#' @param tidy_table TRUE means only return subset of results in the
+#'   table (primary results of interest)
 #' @export
 #' @importFrom rlang set_names
-#' @importFrom dplyr group_by filter mutate arrange summarise left_join bind_rows relocate n
+#' @importFrom dplyr group_by filter mutate arrange summarise
+#'   left_join bind_rows relocate n
 #' @importFrom dplyr mutate
 #' @importFrom rlang ensym
 IV.est.strat = function( data,  Yobs="Yobs", S="S", Z="Z", strat_var ="X",
@@ -309,7 +317,8 @@ IV.est.strat = function( data,  Yobs="Yobs", S="S", Z="Z", strat_var ="X",
                          drop_without_warning = FALSE,
                          include_blocks = TRUE,
                          include_FSS = TRUE,
-                         return_strata_only = FALSE ) {
+                         return_strata_only = FALSE,
+                         tidy_table = FALSE ) {
 
 
     stopifnot( "S" != Yobs && "S" != Z )
@@ -451,6 +460,10 @@ IV.est.strat = function( data,  Yobs="Yobs", S="S", Z="Z", strat_var ="X",
         stop( "Uneexpected NaN or Infinite value" )
     }
 
+    if ( tidy_table ) {
+        res = tidy_IV_table( res )
+    }
+
     res
 }
 
@@ -473,7 +486,12 @@ IV.est.strat.cont = function( df, strat_var="X" ) {
 }
 
 
-
+#' Tidy up IV results table
+#'
+#' This simply selects some more relevant columns from the extensive
+#' output of the main method.
+#'
+#' @noRd
 tidy_IV_table = function( res ) {
     dplyr::select( res, Xblk, ITT.hat:LATE.hat,
                    SE.wald, k, n, n_comp, empty ) |>
