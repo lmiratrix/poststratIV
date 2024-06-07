@@ -35,3 +35,7 @@ po/*~
 rsconnect/
 .Rproj.user
 .DS_Store
+results/
+results_onesided/
+results_twosided/
+figures/

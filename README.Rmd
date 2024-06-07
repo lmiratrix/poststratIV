@@ -26,18 +26,21 @@ knitr::opts_chunk$set(
 Package to post-stratify an IV estimate to increase precision.  Also has replication code for associated paper, including code to run the simulations and generate synthetic RCT with non-compliance data.
 
 
-
 ## Demo of use
 
-First we make or load some data:
+First we load some data (or, in this case, make some with our built-in DGP function):
 
 ```{r}
 library( poststratIV )
 dat = make_dat( N = 1000,
-                params = default_sim_params() )
+                params = default_sim_params(),
+                include_POs = FALSE )
+head( dat )
 ```
 
-Then we estimate, declaring the outcome, compliance indicator, treatment assignment indicator, and stratification variable (baseline categorical variable of some sort):
+The data needs a single categorical covariate to stratify on.
+
+Once we have our data, we can estimate, declaring the outcome, compliance indicator, treatment assignment indicator, and stratification variable (baseline categorical variable of some sort):
 
 ```{r}
 res <- IV.est.strat( dat, 
@@ -54,4 +57,30 @@ res <- IV.est( dat,
                      Yobs="Yobs", S="S", Z="Z" )
 knitr::kable( res, digits=2 )
 ```
+
+
+## Replication Code
+
+
+The `replication` directory holds all the replication files for the post-stratification IV paper.
+
+To replicate the results, first install the poststratIV package, which has all the code for the estimators and the DGP.
+```
+devtools::install_github( "lmiratrix/poststratIV" )
+```
+
+You then download the `replication` folder from GitHub.  You can download just the replication folder via [the gitzip](https://kinolien.github.io/gitzip/) web interface, by navigating to it and then putting the following in the search bar:
+```
+https://github.com/lmiratrix/poststratIV/tree/main/replication
+```
+
+Once you download the replication folder, open the R project inside the folder (so the `here::here` commands work correctly) and then you need to run the scripts in the folder in the following order:
+
+ * The simulation files (any order). Note that you will run both the main simulation and the predC simulation scripts twice, once with ONE_SIDED_SIMULATION=TRUE and once with it to FALSE.  This runs everything with one- or two-sided noncompliance.  It saves the results in two different directories.  The analysis files will then stack these results to give a unified analysis.
+
+ * The analysis files (any order)
+
+The scripts will build directories as needed, saving results in those directories.
+
+You can run all of it via the `run_everything.R` script.
 

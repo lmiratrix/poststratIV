@@ -240,6 +240,10 @@ summarize_sim_data = function( dd ) {
 #' @param params Dataframe with pstrat, pi, Ybar0, and tau as default
 #'   values for the strata.  Will overwrite the passed values of
 #'   these, if params is not null.
+#' @param include_POs Should the potential outcomes be included in the
+#'   final returned data?  If FALSE, then you get data that would look
+#'   like what you would get in the field.  TRUE means you have the
+#'   underlying truth to calculate actual (oracle) effects.
 #'
 #' @export
 make_dat = function( N, pi_c = NULL,
@@ -254,7 +258,8 @@ make_dat = function( N, pi_c = NULL,
                      pi = c( 0.01, 0.05, 0.55, 0.95 ),
                      Ybar0 = c( 4, 3, 2, 1 ),
                      tau = c( 0, 1, 2, 3 ),
-                     params = NULL ) {
+                     params = NULL,
+                     include_POs = TRUE ) {
 
     # Copy over params, overriding the other passed parameters
     if ( !is.null( params ) ) {
@@ -362,6 +367,9 @@ make_dat = function( N, pi_c = NULL,
 
     df = rand.exp( df )
 
+    if ( !include.POs ) {
+        df = df %>% select( -Y0, -Y1, -S1, -S0 )
+    }
     return( df )
 }
 

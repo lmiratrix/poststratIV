@@ -23,7 +23,8 @@ make_dat(
   pi = c(0.01, 0.05, 0.55, 0.95),
   Ybar0 = c(4, 3, 2, 1),
   tau = c(0, 1, 2, 3),
-  params = NULL
+  params = NULL,
+  include_POs = TRUE
 )
 }
 \arguments{
@@ -66,6 +67,11 @@ will be rescaled to achieve overall pi_c proportion compliers).}
 \item{params}{Dataframe with pstrat, pi, Ybar0, and tau as default
 values for the strata.  Will overwrite the passed values of
 these, if params is not null.}
+
+\item{include_POs}{Should the potential outcomes be included in the
+final returned data?  If FALSE, then you get data that would look
+like what you would get in the field.  TRUE means you have the
+underlying truth to calculate actual (oracle) effects.}
 }
 \description{
 Make data given set parameters.  Idea is to have standardized
