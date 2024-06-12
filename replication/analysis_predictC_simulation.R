@@ -39,7 +39,7 @@ simres <- mutate( simres,
 
 simres = unnest( simres, cols = res )
 simres
-nrow( simres )
+cli_alert_info( "Working with {nrow( simres )} rows of simulation data" )
 
 
 table( simres$method )

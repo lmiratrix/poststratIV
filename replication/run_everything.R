@@ -4,9 +4,21 @@
 
 # Load libraries
 
-library( tidyverse )
-library( poststratIV )
-library( cli )
+library(foreign)
+library(xtable)
+library(tidyverse)
+library(AER)
+library(here)
+library(Matrix)
+library(lme4)
+library(cli)
+library(scales)
+library(RColorBrewer)
+library(future)
+library(furrr)
+
+library(poststratIV)
+
 
 # Set to true to run the simulations
 RUN_SIMULATIONS = FALSE
@@ -17,10 +29,13 @@ M_CHUNK = 10
 
 # Run all the simulations
 if ( RUN_SIMULATIONS ) {
+    cat( "Two-sided simulations\n" )
+    
     ONE_SIDED_SIMULATION = FALSE
     source("simulation_full_twosided.R")
     source("simulation_pred_C_twosided.R")
 
+    cat( "One-sided simulations\n" )
     ONE_SIDED_SIMULATION = TRUE
     source("simulation_full_twosided.R")
     source("simulation_pred_C_twosided.R")

@@ -22,6 +22,7 @@ R = dtT %>%
     dplyr::filter( num_strata==1, nt_shift==-1, one_sided==TRUE, method=="UNSTRAT" ) %>%
     nrow()
 R
+cli_alert_info( "We detect R={R} for these saved results" )
 
 figures_dir = here::here( "figures/" )
 if ( !dir.exists( figures_dir ) ) {
