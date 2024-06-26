@@ -105,20 +105,27 @@ sumOS <- sum %>% filter( one_sided == TRUE ) %>%
     pivot_longer( cols=c( "bias", "SE", "RMSE" ),
                   names_to = "metric",
                   values_to = "value" ) %>%
-    mutate( metric = factor( metric, levels=c("bias","SE", "RMSE" )))
+    mutate( metric = factor( metric, levels=c("bias","SE", "RMSE" ),
+                             labels = c("Bias", "SE", "RMSE" ) ) )
 
-ggplot( sumOS, aes( num_strata, value, col=method ) ) +
-    facet_grid(  nt_shift ~ metric ) +
-    geom_line() + geom_point( size = 2, alpha=0.5 ) +
+#sumOS$method = fix_method_fct( sumOS$method )
+table( sumOS$method )
+class( sumOS$method )
+sumOS$method[ sumOS$method == "UNSTRAT" ] = "Unstrat"
+
+plt <- ggplot( sumOS, aes( num_strata, value, col=method, lty=method ) ) +
+    facet_grid(  nt_shift ~ metric, labeller = label_parsed ) +
+    geom_line() + #+ geom_point( size = 2, alpha=0.5 ) +
     geom_hline( yintercept = 0 ) +
     scale_x_continuous( breaks = unique( sum$num_strata ) ) +
     scale_y_continuous( limits = c(-2,4), breaks = c( -2, 0, 2, 4 ) ) +
     theme_minimal() +
-    labs( x = "number of random strata", y = "standard deviations" ) +
+    labs( x = "number of random strata", y = "standard deviations",
+          col = "Estimator", lty="Estimator") +
     theme(plot.margin=margin(0,10,0,5),
           panel.spacing = unit(1, "lines") ) # Adjust space between facets
 
-
+add_color_line_thing(plt) #add_color_line_thing(plt)
 
 ggsave( file=paste0( figures_dir, "random_strat_nohet.pdf" ),
         width = 6, height = 4 )

@@ -240,7 +240,6 @@ plt <- aggresL %>%
     theme(plot.margin=margin(0,10,0,5),
           panel.spacing = unit(2, "lines") ) # Adjust space between facets
 
-
 add_color_line_thing(plt)
 
 ggsave( "figures/predC_Bias_SE_RMSE.pdf", width = 7, height = 3 )

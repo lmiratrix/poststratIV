@@ -90,41 +90,41 @@ cat( "# rows of results (final):", nrow( simres ), "\n" )
 
 #### Handle extreme value estimates ####
 if ( TRUE ) {
-
+    
     # Max out LATE estimates at THRESHOLD
     THRESHOLD = 10
     simres = mutate( simres,
                      LATE.hat = pmax( -THRESHOLD, pmin( LATE.hat, THRESHOLD ) ),
                      maxed = abs(LATE.hat) == THRESHOLD )
-
-
+    
+    
     # overall percent of extreme estimates
     mean( simres$maxed )
-
+    
     # Percent of values at threshold
     simres %>% group_by( method, N ) %>%
         summarise( maxed = 100 * mean( maxed ) ) %>%
         pivot_wider( names_from="N", values_from="maxed" ) %>%
         knitr::kable( digits = 1 )
-
-
-
+    
+    
+    
     # Look at distribution of SE estimates
     simres %>% group_by( method, pi_c, N ) %>%
         summarise( propneg = mean( pi.hat <= 0, na.rm=TRUE ),
                    min_SE = min( SE.wald, na.rm=TRUE ),
                    max_SE = max( SE.wald, na.rm=TRUE )) %>%
         arrange( -propneg )
-
+    
     filter( simres, pi.hat < 0 ) %>%
         dplyr::select( N:method, pi.hat ) %>%
         sample_n( n() )
-
+    
     simres <- simres %>% mutate(
         SE.wald = pmax( -2*THRESHOLD, pmin( abs( SE.wald ), 4*THRESHOLD ) ),
         SE.delta = pmax( -2*THRESHOLD, pmin( abs( SE.delta ), 4*THRESHOLD ) ),
         maxed_SE = abs(SE.wald) == 2*THRESHOLD | abs(SE.delta) == 4 * THRESHOLD )
-
+    
     simres %>% group_by( method, N, pi_c ) %>%
         summarise( max_est = 100 * mean( maxed, na.rm=TRUE ),
                    max_SE = 100 * mean( maxed_SE, na.rm = TRUE ),
@@ -268,20 +268,23 @@ ratios = filter( ratios, method != "UNSTRAT" ) %>%
             SEmethod = ifelse( SEmethod=="wald", "Bloom", "Delta" ) )
 
 
+ratios$method = fix_method_fct( ratios$method )
+
 ggplot( ratios,
         aes( as.factor(N), ratio, col=SEmethod  ) ) +
     #facet_grid( method ~ SEmethod ) +
-    facet_wrap( ~ method, nrow=1 ) +
+    facet_wrap( ~ method, nrow=1, labeller = label_parsed ) +
     #geom_jitter( width=0.1 ) +
     geom_boxplot( width = 0.5 ) +
     geom_hline( yintercept = 0 ) +
     labs( x = "Sample Size", y = "Relative stability",
-          col = "Method" ) + #y = "[sd_SE_p / SE_p] / [sd_SE_u / SE_u]") +
+          col = "Estimator" ) + #y = "[sd_SE_p / SE_p] / [sd_SE_u / SE_u]") +
     scale_y_continuous( labels = scales::percent_format( ) ) +
     scale_x_discrete( breaks = c( 500, 1000, 2000 ), labels = c( "500", "1K", "2K" ),
                       expand = c( 0, 0.1 ) ) +
     theme(plot.margin=margin(0,10,0,5),
-          panel.spacing = unit(2, "lines") ) # Adjust space between facets
+          panel.spacing = unit(2, "lines") ) + # Adjust space between facets
+    scale_color_brewer(palette = "Set2") # Use 'Set2' palette
 
 
 
