@@ -21,7 +21,8 @@ cli_alert_info( "Running the random stratification simulation\n" )
 if ( !exists( "R" ) ) {
     # Number of sim runs
     R = 6
-
+    warning( "Setting R=6 to demo code.  Raise number of simulation replicates for real results" )
+    
     # M_CHUNK is a hack to make a bunch of smaller chunks for doing parallel more
     # efficiently.
     M_CHUNK = 2

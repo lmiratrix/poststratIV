@@ -15,6 +15,7 @@ cat( "Running the exclusion restriction simulation\n" )
 
 if ( !exists( "R" ) ) {
     # Number of sim runs
+    warning( "Setting R=6 to demo code.  Raise number of simulation replicates for real results" )
     R = 6
 
 }

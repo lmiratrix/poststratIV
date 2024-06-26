@@ -29,6 +29,7 @@ cli_alert_info( "Running the predictive-of-compliance simulation with ONE_SIDED_
 
 if ( !exists( "R" ) ) {
     # Number of sim runs
+    warning( "Setting R=6 to demo code.  Raise number of simulation replicates for real results" )
     R = 6 # 3000
 
     # chunkNo is a hack to make a bunch of smaller chunks for doing parallel more
