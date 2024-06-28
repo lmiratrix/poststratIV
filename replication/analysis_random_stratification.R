@@ -112,9 +112,10 @@ sumOS <- sum %>% filter( one_sided == TRUE ) %>%
 table( sumOS$method )
 class( sumOS$method )
 sumOS$method[ sumOS$method == "UNSTRAT" ] = "Unstrat"
+sumOS$method = fix_method_fct( sumOS$method )
 
 plt <- ggplot( sumOS, aes( num_strata, value, col=method, lty=method ) ) +
-    facet_grid(  nt_shift ~ metric, labeller = label_parsed ) +
+    facet_grid(  nt_shift ~ metric ) + #, labeller = label_parsed ) +
     geom_line() + #+ geom_point( size = 2, alpha=0.5 ) +
     geom_hline( yintercept = 0 ) +
     scale_x_continuous( breaks = unique( sum$num_strata ) ) +

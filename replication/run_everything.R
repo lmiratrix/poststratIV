@@ -21,7 +21,7 @@ library(poststratIV)
 
 
 # Set to true to run the simulations
-RUN_SIMULATIONS = FALSE
+RUN_SIMULATIONS = TRUE
 
 # Number of iterations per scenario
 R = 1000

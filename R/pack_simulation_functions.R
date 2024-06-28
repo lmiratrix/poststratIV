@@ -177,7 +177,7 @@ one_run = function( N, nt_shift, sd0, pi_c,
         return( df )
     }
 
-    IVest = IV.est.strat(df)
+    IVest = IV.est.strat(df, warn.DSF = FALSE)
 
     g = IVest$Xblk
     IVest$pi_zero <- 0

@@ -15,6 +15,7 @@ IV.est.strat(
   strat_var = "X",
   DSS_cutoff = 0.02,
   drop_without_warning = FALSE,
+  warn.DSF = TRUE,
   include_blocks = TRUE,
   include_FSS = TRUE,
   return_strata_only = FALSE,
@@ -31,6 +32,9 @@ variable that we should stratify on.}
 \item{drop_without_warning}{If TRUE will drop blocks that are
 inestimable due to not having at least 2 tx and 2 co units.  If
 FALSE will drop, but also throw warning.}
+
+\item{warn.DSF}{If TRUE will throw warning if estimator drops all
+strata due to the screen.}
 
 \item{tidy_table}{TRUE means only return subset of results in the
 table (primary results of interest)}

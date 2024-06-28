@@ -57,7 +57,7 @@ one_run_mini = function( num_strata, nt_shift, one_sided, pi_c = 0.05 ) {
     dat$S0 = dat$S1 = NULL
     dat$complier = NULL
 
-    IVest = IV.est.strat(dat)
+    IVest = IV.est.strat(dat, warn.DSF = FALSE )
 
     IVest <- IVest %>% filter( Xblk %in% c( "UNSTRAT", "IV_a", "IV_w" ) ) %>%
         rename( method = Xblk )
@@ -97,8 +97,7 @@ if ( FALSE ) {
 
 
 sim_mini = function( num_strata, nt_shift, R, one_sided ) {
-    rps = rerun( R, one_run_mini( num_strata = num_strata, nt_shift = nt_shift, one_sided = one_sided ) )
-    rps = do.call( bind_rows, rps )
+    rps = map_df( 1:R, ~one_run_mini( num_strata = num_strata, nt_shift = nt_shift, one_sided = one_sided ) )
     rps
 }
 #safe_run_sim = safely( sim_mini )
