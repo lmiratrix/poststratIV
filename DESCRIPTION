@@ -1,9 +1,12 @@
 Package: poststratIV
 Title: Post-Stratified Estimation of Complier Average Causal Effects
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R: c(
     person("Luke", "Miratrix", , "lmiratrix@g.harvard.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-0078-1906"))
+           comment = c(ORCID = "0000-0002-0078-1906")),
+    person("Nicole", "Pashley", , "nicole.pashley@rutgers.edu", role = c("aut"),
+           comment = c(ORCID = "0000-0002-5900-3535"))
+    )
 Description: Implements post-stratified estimation of complier average causal effects
     (CACE) in the presence of non-compliance for RCTs.  Package also provides some code to run simulations
     of different ways of estimating complier average causal effects, including 2SLS, 
